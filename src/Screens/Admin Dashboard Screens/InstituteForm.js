@@ -1,16 +1,3 @@
-// import { Box } from "@mui/material";
-// import React from "react";
-
-// const InstituteForm = () => {
-//   return (
-//     <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "25px" }}>
-//       <h1 style={{textAlign:'center'}}>INSTITUTE FORM</h1>
-//     </Box>
-//   );
-// };
-
-// export default InstituteForm;
-
 import React, { useState } from "react";
 import {
   TextField,
@@ -24,14 +11,13 @@ import {
   InputLabel,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { InstituteFormData } from "../../Config/firebasemethod";
 
 const InstituteForm = () => {
   const [institute, setInstitute] = useState({
     name: "",
     shortName: "",
-    logo: "",
     campuses: 0,
-    campusDetails: "",
     location: "",
     address: "",
     contact: "",
@@ -47,6 +33,9 @@ const InstituteForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(institute);
+    InstituteFormData(institute, "Institutes")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -89,21 +78,6 @@ const InstituteForm = () => {
                     onChange={handleChange}
                     required
                   />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Campus Details
-                  </Typography>
-                    <TextField
-                      type="text"
-                      fullWidth
-                      label="Campus Details"
-                      name="campusDetails"
-                      value={institute.campusDetails}
-                      onChange={handleChange}
-                      required
-                    />
                 </Grid>
 
                 <Grid item xs={12} md={6} lg={6}>
@@ -184,7 +158,9 @@ const InstituteForm = () => {
                 </Grid>
 
                 <Grid item xs={12} md={12} lg={12}>
-                <Button variant="contained" color="primary" type="submit">Submit</Button>  
+                  <Button variant="contained" color="primary" type="submit">
+                    Submit
+                  </Button>
                 </Grid>
               </Grid>
             </form>
