@@ -40,4 +40,20 @@ const InstituteFormData = (obj, nodename) => {
   });
 };
 
-export { InstituteFormData };
+const getData = (nodeName) => {
+  let reference = ref(database, nodeName);
+
+  return new Promise((resolve, reject) => {
+    onValue(reference, (e) => {
+      let status = e.exists();
+      if (status) {
+        let data = e.val();
+        resolve(Object.values(data));
+      } else {
+        reject("Data Not Found");
+      }
+    });
+  });
+};
+
+export { InstituteFormData, getData };

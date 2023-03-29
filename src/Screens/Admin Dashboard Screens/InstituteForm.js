@@ -36,6 +36,18 @@ const InstituteForm = () => {
     InstituteFormData(institute, "Institutes")
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+
+    setInstitute({
+      name: "",
+      shortName: "",
+      campuses: 0,
+      location: "",
+      address: "",
+      contact: "",
+      ownerContact: "",
+      ownerEmail: "",
+      type: "",
+    });
   };
 
   return (

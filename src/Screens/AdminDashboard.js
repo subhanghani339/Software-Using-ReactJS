@@ -61,7 +61,7 @@ function AdminDashboard(props) {
             path: "user-registration",
           }
         ].map((text, index) => (
-          <ListItem onClick={()=> navigate(text.path)} key={text} disablePadding>
+          <ListItem onClick={()=> navigate(text.path)} key={index} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
