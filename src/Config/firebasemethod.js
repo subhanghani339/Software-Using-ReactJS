@@ -4,9 +4,6 @@ import {
   onValue,
   push,
   ref,
-  remove,
-  set,
-  update,
 } from "@firebase/database";
 import app from "./firebaseconfig";
 

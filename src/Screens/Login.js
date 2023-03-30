@@ -12,7 +12,7 @@ const Login = () => {
   return (
     <div style={{ textAlign: "center" }}>
       <form onSubmit={handleSubmit}>
-        <h1>Login Account</h1>
+        <h1>Login</h1>
         <TextField
           label="Email"
           variant="outlined"

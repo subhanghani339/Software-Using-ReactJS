@@ -13,7 +13,13 @@ import {
 import { Box } from "@mui/system";
 
 const qualifications = ["Matric", "Intermediate", "Graduate"];
-const courses = ["Web And Mobile Module A", "Web And Mobile Module B", "Graphic Designing"];
+const courses = [
+  "Web And Mobile Module A",
+  "Web And Mobile Module B",
+  "Graphic Designing",
+];
+
+const sections = ["A", "B", "C", "D", "E"];
 
 const RegistrationForm = () => {
   const [name, setName] = useState("");
@@ -25,6 +31,7 @@ const RegistrationForm = () => {
   const [qualification, setQualification] = useState("");
   const [course, setCourse] = useState("");
   const [gender, setGender] = useState("");
+  const [section, setSection] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,7 +39,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "25px" }}>
+    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <h1 style={{ textAlign: "center" }}>REGISTRATION FORM</h1>
       <form onSubmit={handleSubmit} sx={{ display: "flex" }}>
         <Grid container spacing={2} justifyContent="center">
@@ -104,12 +111,30 @@ const RegistrationForm = () => {
                 label="Course"
                 select
                 variant="outlined"
-                value={qualification}
+                value={course}
                 onChange={(event) => setCourse(event.target.value)}
               >
-                {courses.map((course) => (
-                  <MenuItem key={course} value={course}>
+                {courses.map((course, index) => (
+                  <MenuItem key={index} value={course}>
                     {course}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </FormControl>
+          </Grid>
+
+          <Grid item sm={12} md={6} lg={6}>
+            <FormControl fullWidth margin="normal">
+              <TextField
+                label="Section"
+                select
+                variant="outlined"
+                value={section}
+                onChange={(e) => setSection(e.target.value)}
+              >
+                {sections.map((section, index) => (
+                  <MenuItem key={index} value={section}>
+                    {section}
                   </MenuItem>
                 ))}
               </TextField>
@@ -164,7 +189,7 @@ const RegistrationForm = () => {
 
           <Grid item lg={12} md={12} sm={12}>
             <Button variant="contained" color="primary" type="submit">
-              Submit
+              Register
             </Button>
           </Grid>
         </Grid>
