@@ -32,10 +32,7 @@ const InstituteForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(institute);
     InstituteFormData(institute, "Institutes")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
 
     setInstitute({
       name: "",
@@ -171,7 +168,7 @@ const InstituteForm = () => {
 
                 <Grid item xs={12} md={12} lg={12}>
                   <Button variant="contained" color="primary" type="submit">
-                    Submit
+                    Add Institute
                   </Button>
                 </Grid>
               </Grid>

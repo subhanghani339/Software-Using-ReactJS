@@ -14,17 +14,6 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 
 const InstituteFormData = (obj, nodename) => {
-  let {
-    name,
-    shortName,
-    campuses,
-    location,
-    address,
-    contact,
-    ownerContact,
-    ownerEmail,
-    type,
-  } = obj;
   return new Promise((resolve, reject) => {
     const reference = ref(database, nodename);
     push(reference, obj)

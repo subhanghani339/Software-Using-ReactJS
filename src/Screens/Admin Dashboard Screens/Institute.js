@@ -55,9 +55,9 @@ const Institute = () => {
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "25px" }}>
       <h1 style={{ textAlign: "center" }}>LIST OF INSTITUTES</h1>
-      <List style={{ display: "flex" }}>
-        {data.map((e,i) => (
-          <ListItem key={i}>
+      <List style={{ display: "flex", flexWrap: "wrap" }}>
+        {data.map((e, i) => (
+          <ListItem key={i} className="institutesInfo" style={{width:'25%',}}>
             <ListItemAvatar>
               <Avatar alt={e.name} src={e.logo} />
             </ListItemAvatar>
