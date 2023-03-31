@@ -47,7 +47,7 @@ function InstituteDashboard(props) {
         {[
           {
             name: "Course List",
-            path: "course-list",
+            path: "",
           },
           {
             name: "Course Form",
@@ -155,7 +155,7 @@ function InstituteDashboard(props) {
         </Drawer>
       </Box>
       <Routes>
-          <Route path="/course-list" element={<CourseList />} />
+          <Route path="/" element={<CourseList />} />
           <Route path="/course-form" element={<CourseForm />} />
           <Route path="/registration-control" element={<RegistrationControl />} />
           <Route path="/results" element={<Results />} />

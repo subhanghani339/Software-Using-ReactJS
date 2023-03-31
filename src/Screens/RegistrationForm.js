@@ -9,10 +9,21 @@ import {
   FormControlLabel,
   Button,
   Grid,
+  Container,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import "../../src/App.css";
 
 const qualifications = ["Matric", "Intermediate", "Graduate"];
+const cities = [
+  "Karachi",
+  "Islamabad",
+  "Lahore",
+  "Multan",
+  "Faisalabad",
+  "Other",
+];
+const countries = ["Pakistan", "India", "Canada", "USA", "Other"];
 const courses = [
   "Web And Mobile Module A",
   "Web And Mobile Module B",
@@ -32,6 +43,9 @@ const RegistrationForm = () => {
   const [course, setCourse] = useState("");
   const [gender, setGender] = useState("");
   const [section, setSection] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [address, setAddress] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,10 +53,15 @@ const RegistrationForm = () => {
   };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+    <Container maxWidth="lg" disableGutters sx={{marginBottom:"50px"}}>
       <h1 style={{ textAlign: "center" }}>REGISTRATION FORM</h1>
       <form onSubmit={handleSubmit} sx={{ display: "flex" }}>
-        <Grid container spacing={2} justifyContent="center">
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          className="RegistrationForm"
+        >
           <Grid item lg={6} md={6} sm={12}>
             <TextField
               label="Student Name"
@@ -67,6 +86,30 @@ const RegistrationForm = () => {
 
           <Grid item lg={6} md={6} sm={12}>
             <TextField
+              label="Email"
+              variant="outlined"
+              fullWidth
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              margin="normal"
+            />
+          </Grid>
+
+          <Grid item lg={6} md={6} sm={12}>
+            <TextField
+              label="Password"
+              variant="outlined"
+              fullWidth
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              margin="normal"
+            />
+          </Grid>
+
+          <Grid item lg={6} md={6} sm={12}>
+            <TextField
               label="Contact Number"
               variant="outlined"
               fullWidth
@@ -85,6 +128,65 @@ const RegistrationForm = () => {
               onChange={(e) => setCNIC(e.target.value)}
               margin="normal"
             />
+          </Grid>
+
+          <Grid item lg={6} md={6} sm={12}>
+            <FormControl fullWidth margin="normal">
+              <TextField
+                label="City"
+                select
+                variant="outlined"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              >
+                {cities.map((city, index) => (
+                  <MenuItem key={index} value={city}>
+                    {city}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </FormControl>
+          </Grid>
+
+          <Grid item sm={12} md={6} lg={6}>
+            <FormControl fullWidth margin="normal">
+              <TextField
+                label="Country"
+                select
+                variant="outlined"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              >
+                {countries.map((country, index) => (
+                  <MenuItem key={index} value={country}>
+                    {country}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </FormControl>
+          </Grid>
+
+          <Grid item lg={12} md={12} sm={12}>
+            <FormControl component="fieldset" fullWidth>
+              <FormLabel component="legend">Gender</FormLabel>
+              <RadioGroup
+                aria-label="gender"
+                value={gender}
+                onChange={(event) => setGender(event.target.value)}
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Female"
+                />
+              </RadioGroup>
+            </FormControl>
           </Grid>
 
           <Grid item lg={6} md={6} sm={12}>
@@ -143,48 +245,13 @@ const RegistrationForm = () => {
 
           <Grid item lg={6} md={6} sm={12}>
             <TextField
-              label="Email"
+              label="Address"
               variant="outlined"
               fullWidth
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               margin="normal"
             />
-          </Grid>
-
-          <Grid item lg={6} md={6} sm={12}>
-            <TextField
-              label="Password"
-              variant="outlined"
-              fullWidth
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              margin="normal"
-            />
-          </Grid>
-
-          <Grid item lg={6} md={6} sm={12}>
-            <FormControl component="fieldset" fullWidth>
-              <FormLabel component="legend">Gender</FormLabel>
-              <RadioGroup
-                aria-label="gender"
-                value={gender}
-                onChange={(event) => setGender(event.target.value)}
-              >
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
-                />
-              </RadioGroup>
-            </FormControl>
           </Grid>
 
           <Grid item lg={12} md={12} sm={12}>
@@ -194,7 +261,7 @@ const RegistrationForm = () => {
           </Grid>
         </Grid>
       </form>
-    </Box>
+    </Container>
   );
 };
 
