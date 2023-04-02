@@ -11,7 +11,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { InstituteFormData } from "../../Config/firebasemethod";
+import { createInstitute } from "../../Config/firebasemethod";
 
 const InstituteForm = () => {
   const [institute, setInstitute] = useState({
@@ -23,7 +23,9 @@ const InstituteForm = () => {
     contact: "",
     ownerContact: "",
     ownerEmail: "",
-    type: "",
+    password: "",
+    instituteType: "",
+    userType: "",
   });
 
   const handleChange = (e) => {
@@ -32,7 +34,7 @@ const InstituteForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    InstituteFormData(institute, "Institutes")
+    createInstitute(institute, "Institutes");
 
     setInstitute({
       name: "",
@@ -43,7 +45,9 @@ const InstituteForm = () => {
       contact: "",
       ownerContact: "",
       ownerEmail: "",
-      type: "",
+      password: "",
+      instituteType: "",
+      userType: "",
     });
   };
 
@@ -145,15 +149,27 @@ const InstituteForm = () => {
                 </Grid>
 
                 <Grid item xs={12} md={6} lg={6}>
+                  <TextField
+                    fullWidth
+                    label="Password"
+                    name="password"
+                    type="password"
+                    value={institute.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={6}>
                   <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
                     <InputLabel id="demo-simple-select-standard-label">
-                      Type
+                      Institute Type
                     </InputLabel>
                     <Select
-                      value={institute.type}
+                      value={institute.instituteType}
                       onChange={handleChange}
-                      label="Type"
-                      name="type"
+                      label="Institute Type"
+                      name="instituteType"
                     >
                       <MenuItem value="None">
                         <em>None</em>
@@ -161,6 +177,25 @@ const InstituteForm = () => {
                       <MenuItem value={"School"}>School</MenuItem>
                       <MenuItem value={"College"}>College</MenuItem>
                       <MenuItem value={"University"}>University</MenuItem>
+                      <MenuItem value={"Institute"}>Institute</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={6}>
+                  <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
+                    <InputLabel id="demo-simple-select-standard-label">
+                      User Type
+                    </InputLabel>
+                    <Select
+                      value={institute.userType}
+                      onChange={handleChange}
+                      label="User Type"
+                      name="userType"
+                    >
+                      <MenuItem value="None">
+                        <em>None</em>
+                      </MenuItem>
                       <MenuItem value={"Institute"}>Institute</MenuItem>
                     </Select>
                   </FormControl>

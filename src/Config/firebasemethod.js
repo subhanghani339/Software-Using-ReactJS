@@ -1,16 +1,31 @@
-import { getAuth } from "firebase/auth";
-import {
-  getDatabase,
-  onValue,
-  push,
-  ref,
-} from "@firebase/database";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getDatabase, onValue, set, ref } from "@firebase/database";
 import app from "./firebaseconfig";
 
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-const InstituteFormData = (obj, nodename) => {
+const createInstitute = (obj, nodename) => {
+  let {name, shortName, campuses, location, address, contact, ownerContact, ownerEmail, password} = obj
+  return new Promise((resolve, reject) => {
+    createUserWithEmailAndPassword(auth, ownerEmail, password).then((userCredential) => {
+      const user = userCredential.user
+      const reference = ref(database, `${nodename}/${user.uid}`)
+      set(reference, obj)
+        .then(() => {
+          resolve("User created successfully and data send database");
+        })
+        .catch((err) => {
+          reject("User created successfully but data not send database");
+          console.log("database error", err);
+        });
+    });
+  }).catch((err) => {
+    console.log(err);
+  });
+};
+
+/* const InstituteFormData = (obj, nodename) => {
   return new Promise((resolve, reject) => {
     const reference = ref(database, nodename);
     push(reference, obj)
@@ -25,6 +40,7 @@ const InstituteFormData = (obj, nodename) => {
     console.log(err);
   });
 };
+*/
 
 const getData = (nodeName) => {
   let reference = ref(database, nodeName);
@@ -42,4 +58,4 @@ const getData = (nodeName) => {
   });
 };
 
-export { InstituteFormData, getData };
+export { createInstitute, getData };
