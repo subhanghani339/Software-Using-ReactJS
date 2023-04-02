@@ -1,14 +1,14 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDatabase, onValue, set, ref } from "@firebase/database";
+import { getDatabase, onValue, set, ref, push } from "@firebase/database";
 import app from "./firebaseconfig";
 
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-const createInstitute = (obj, nodename) => {
-  let {name, shortName, campuses, location, address, contact, ownerContact, ownerEmail, password} = obj
+const createUser = (obj, nodename) => {
+  
   return new Promise((resolve, reject) => {
-    createUserWithEmailAndPassword(auth, ownerEmail, password).then((userCredential) => {
+    createUserWithEmailAndPassword(auth, obj.email, obj.password).then((userCredential) => {
       const user = userCredential.user
       const reference = ref(database, `${nodename}/${user.uid}`)
       set(reference, obj)
@@ -25,7 +25,7 @@ const createInstitute = (obj, nodename) => {
   });
 };
 
-/* const InstituteFormData = (obj, nodename) => {
+ const postData = (obj, nodename) => {
   return new Promise((resolve, reject) => {
     const reference = ref(database, nodename);
     push(reference, obj)
@@ -40,7 +40,6 @@ const createInstitute = (obj, nodename) => {
     console.log(err);
   });
 };
-*/
 
 const getData = (nodeName) => {
   let reference = ref(database, nodeName);
@@ -58,4 +57,4 @@ const getData = (nodeName) => {
   });
 };
 
-export { createInstitute, getData };
+export { createUser, getData, postData };

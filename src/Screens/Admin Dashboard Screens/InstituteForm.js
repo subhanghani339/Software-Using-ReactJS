@@ -11,7 +11,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { createInstitute } from "../../Config/firebasemethod";
+import { createUser } from "../../Config/firebasemethod";
 
 const InstituteForm = () => {
   const [institute, setInstitute] = useState({
@@ -22,7 +22,7 @@ const InstituteForm = () => {
     address: "",
     contact: "",
     ownerContact: "",
-    ownerEmail: "",
+    email: "",
     password: "",
     instituteType: "",
     userType: "",
@@ -34,7 +34,7 @@ const InstituteForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createInstitute(institute, "Institutes");
+    createUser(institute, "Institutes");
 
     setInstitute({
       name: "",
@@ -44,7 +44,7 @@ const InstituteForm = () => {
       address: "",
       contact: "",
       ownerContact: "",
-      ownerEmail: "",
+      email: "",
       password: "",
       instituteType: "",
       userType: "",
@@ -141,8 +141,8 @@ const InstituteForm = () => {
                   <TextField
                     fullWidth
                     label="Owner Email"
-                    name="ownerEmail"
-                    value={institute.ownerEmail}
+                    name="email"
+                    value={institute.email}
                     onChange={handleChange}
                     required
                   />
