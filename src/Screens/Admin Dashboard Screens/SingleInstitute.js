@@ -61,16 +61,16 @@ const SingleInstitute = () => {
         Location: <span style={{ color: 'red' }}>{location.state.location}</span>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Address: <span style={{ color: 'red' }}>123 Main St, City, Country</span>
+        Address: <span style={{ color: 'red' }}>{location.state.address}</span>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Contact: <span style={{ color: 'red' }}>+1 (123) 456-7890</span>
+        Contact: <span style={{ color: 'red' }}>{location.state.contact}</span>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Owner Contact: <span style={{ color: 'red' }}>+1 (123) 456-7890</span>
+        Owner Contact: <span style={{ color: 'red' }}>{location.state.ownerContact}</span>
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Owner Email: <span style={{ color: 'red' }}>owner@institute.com</span>
+        Owner Email: <span style={{ color: 'red' }}>{location.state.ownerEmail}</span>
       </Typography>
     </Box>
   );
