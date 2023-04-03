@@ -22,6 +22,7 @@ import ColorTheme from '../Screens/Admin Dashboard Screens/ColorTheme'
 import Institute from '../Screens/Admin Dashboard Screens/Institute'
 import InstituteForm from '../Screens/Admin Dashboard Screens/InstituteForm'
 import UserRegistration from './Admin Dashboard Screens/UserRegistration';
+import SingleInstitute from './Admin Dashboard Screens/SingleInstitute';
 
 const drawerWidth = 240;
 
@@ -139,6 +140,7 @@ function AdminDashboard(props) {
           <Route path="/color-theme" element={<ColorTheme />} />
           <Route path="/activation" element={<Activation />} />
           <Route path="/user-registration" element={<UserRegistration />} />
+          <Route path="/institute/single-institute/:shortName" element={<SingleInstitute />} />
       </Routes>
     </Box>
   );
