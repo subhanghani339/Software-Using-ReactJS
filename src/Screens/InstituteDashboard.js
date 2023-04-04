@@ -17,15 +17,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import CourseList from './Institute Dashboard Screens/CourseList';
-import CourseForm from './Institute Dashboard Screens/CourseForm';
-import RegistrationControl from './Institute Dashboard Screens/RegistrationControl';
-import Results from './Institute Dashboard Screens/Results';
-import StudentsList from './Institute Dashboard Screens/StudentsList';
-import StudentsDetail from './Institute Dashboard Screens/StudentsDetail';
-import StudentForm from './Institute Dashboard Screens/StudentForm';
-import Quiz from './Institute Dashboard Screens/Quiz';
-import AddQuiz from './Institute Dashboard Screens/AddQuiz';
+import CourseList from './institute_screens/CourseList';
+import CourseForm from './institute_screens/CourseForm';
+import RegistrationControl from './institute_screens/RegistrationControl';
+import Results from './institute_screens/Results';
+import StudentsList from './institute_screens/StudentsList';
+import StudentsDetail from './institute_screens/StudentsDetail';
+import StudentForm from './institute_screens/StudentForm';
+import Quiz from './institute_screens/Quiz';
+import AddQuiz from './institute_screens/AddQuiz';
 
 
 const drawerWidth = 240;

@@ -17,12 +17,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Activation from '../Screens/Admin Dashboard Screens/Activation'
-import ColorTheme from '../Screens/Admin Dashboard Screens/ColorTheme'
-import Institute from '../Screens/Admin Dashboard Screens/Institute'
-import InstituteForm from '../Screens/Admin Dashboard Screens/InstituteForm'
-import UserRegistration from './Admin Dashboard Screens/UserRegistration';
-import SingleInstitute from './Admin Dashboard Screens/SingleInstitute';
+import Activation from '../Screens/admin_screens/Activation'
+import ColorTheme from '../Screens/admin_screens/ColorTheme'
+import Institute from '../Screens/admin_screens/Institute'
+import InstituteForm from '../Screens/admin_screens/InstituteForm'
+import UserRegistration from './admin_screens/UserRegistration';
+import SingleInstitute from './admin_screens/SingleInstitute';
 
 const drawerWidth = 240;
 
