@@ -36,7 +36,7 @@ export default function CourseList() {
   const getInstituteData = () => {
     getData("Courses")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setData(res);
       })
       .catch((err) => console.log(err));
@@ -62,10 +62,10 @@ export default function CourseList() {
           <TableBody>
             {data.map((row) => (
               <StyledTableRow key={row.name}>
-                <StyledTableCell align="center">{row.courseName}</StyledTableCell>
-                <StyledTableCell align="center">{row.duration}</StyledTableCell>
-                <StyledTableCell align="center">${row.fee}</StyledTableCell>
-                <StyledTableCell align="center">{row.duration}</StyledTableCell>
+                <StyledTableCell align="center" key={row.courseName} >{row.courseName}</StyledTableCell>
+                <StyledTableCell align="center" key={row.duration}>{row.duration}</StyledTableCell>
+                <StyledTableCell align="center" key={row.fee}>${row.fee}</StyledTableCell>
+                <StyledTableCell align="center" key={row.name}>{row.duration}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
