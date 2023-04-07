@@ -11,7 +11,7 @@ import {
   Grid,
   Container,
 } from "@mui/material";
-import { getData } from "../../Config/firebasemethod";
+import { createUser, getData } from "../../Config/firebasemethod";
 
 const qualifications = ["Matric", "Intermediate", "Graduate"];
 const cities = [
@@ -57,7 +57,23 @@ const StudentForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission here
+    const studentData = {
+      name:name,
+      fatherName:fatherName,
+      email: email,
+      contact: contact,
+      CNIC:CNIC,
+      password:password,
+      qualification: qualification,
+      course:course,
+      gender:gender,
+      section:section,
+      city:city,
+      country: country,
+      address: address,
+    }
+    createUser(studentData, "Students");
+
   };
 
   return (

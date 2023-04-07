@@ -8,7 +8,6 @@ function RegistrationControl() {
   const handleChange = (event) => {
     setIsChecked(event.target.checked);
     controlData(isChecked,"Registration Control","Registration")
-
     console.log(isChecked);
   };
 

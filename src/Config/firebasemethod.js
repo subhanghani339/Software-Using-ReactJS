@@ -13,10 +13,10 @@ const createUser = (obj, nodename) => {
         const reference = ref(database, `${nodename}/${user.uid}`);
         set(reference, obj)
           .then(() => {
-            resolve("User created successfully and data send database");
+            resolve("User created successfully and data send to database");
           })
           .catch((err) => {
-            reject("User created successfully but data not send database");
+            reject("User created successfully but data not send to database");
             console.log("database error", err);
           });
       }
