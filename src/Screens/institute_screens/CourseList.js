@@ -7,9 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getData } from "../../Config/firebasemethod";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function CourseList() {
   const [data, setData] = useState([]);
-  const getInstituteData = () => {
+  const getCourseData = () => {
     getData("Courses")
       .then((res) => {
         // console.log(res);
@@ -43,12 +44,17 @@ export default function CourseList() {
   };
 
   useEffect(() => {
-    getInstituteData();
+    getCourseData();
   }, []);
+
+  const navigate = useNavigate();
 
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "25px" }}>
-      <h1 style={{ textAlign: "center" }}>LIST OF COURSES</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+        <h1>LIST OF COURSES</h1>
+        <Button onClick={() => {navigate("/institute-dashboard/course-form")}} variant="contained">ADD COURSE</Button>
+      </div> 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>

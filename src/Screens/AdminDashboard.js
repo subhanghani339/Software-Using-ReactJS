@@ -21,7 +21,6 @@ import Activation from '../Screens/admin_screens/Activation'
 import ColorTheme from '../Screens/admin_screens/ColorTheme'
 import Institute from '../Screens/admin_screens/Institute'
 import InstituteForm from '../Screens/admin_screens/InstituteForm'
-import UserRegistration from './admin_screens/UserRegistration';
 import SingleInstitute from './admin_screens/SingleInstitute';
 
 const drawerWidth = 240;
@@ -56,10 +55,6 @@ function AdminDashboard(props) {
           {
             name: "Activation",
             path: "activation",
-          },
-          {
-            name: "User Registration",
-            path: "user-registration",
           }
         ].map((text, index) => (
           <ListItem onClick={()=> navigate(text.path)} key={index} disablePadding>
@@ -139,7 +134,6 @@ function AdminDashboard(props) {
           <Route path="/institute-form" element={<InstituteForm />} />
           <Route path="/color-theme" element={<ColorTheme />} />
           <Route path="/activation" element={<Activation />} />
-          <Route path="/user-registration" element={<UserRegistration />} />
           <Route path="/institute/single-institute/:shortName" element={<SingleInstitute />} />
       </Routes>
     </Box>

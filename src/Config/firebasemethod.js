@@ -6,26 +6,27 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 
 const createUser = (obj, nodename) => {
-  
   return new Promise((resolve, reject) => {
-    createUserWithEmailAndPassword(auth, obj.email, obj.password).then((userCredential) => {
-      const user = userCredential.user
-      const reference = ref(database, `${nodename}/${user.uid}`)
-      set(reference, obj)
-        .then(() => {
-          resolve("User created successfully and data send database");
-        })
-        .catch((err) => {
-          reject("User created successfully but data not send database");
-          console.log("database error", err);
-        });
-    });
+    createUserWithEmailAndPassword(auth, obj.email, obj.password).then(
+      (userCredential) => {
+        const user = userCredential.user;
+        const reference = ref(database, `${nodename}/${user.uid}`);
+        set(reference, obj)
+          .then(() => {
+            resolve("User created successfully and data send database");
+          })
+          .catch((err) => {
+            reject("User created successfully but data not send database");
+            console.log("database error", err);
+          });
+      }
+    );
   }).catch((err) => {
     console.log(err);
   });
 };
 
- const postData = (obj, nodename) => {
+const postData = (obj, nodename) => {
   return new Promise((resolve, reject) => {
     const reference = ref(database, nodename);
     push(reference, obj)
@@ -57,8 +58,23 @@ const getData = (nodeName) => {
   });
 };
 
-export { createUser, getData, postData };
+const controlData = (obj, nodename,subnode) => {
+  return new Promise((resolve, reject) => {
+    const reference = ref(database, `${nodename}/${subnode}/`);
+    set(reference, obj)
+      .then(() => {
+        resolve("Data sent to database");
+      })
+      .catch((err) => {
+        reject("Data does not sent to database");
+        console.log("database error", err);
+      });
+  }).catch((err) => {
+    console.log(err);
+  });
+};
 
+export { createUser, getData, postData, controlData };
 
 // import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 // import {
@@ -182,6 +198,5 @@ export { createUser, getData, postData };
 //         });
 //     });
 // }
-
 
 // export { postData, getData, loginUser, SignupUser, checkUser, signoutUser, deleteData };

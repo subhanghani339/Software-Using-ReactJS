@@ -50,10 +50,6 @@ function InstituteDashboard(props) {
             path: "",
           },
           {
-            name: "Course Form",
-            path: "course-form",
-          },
-          {
             name: "Registration Control",
             path: "registration-control",
           },

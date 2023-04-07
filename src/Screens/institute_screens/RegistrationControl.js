@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Box, Switch, Typography } from "@mui/material";
+import { controlData } from "../../Config/firebasemethod";
 
 function RegistrationControl() {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = (event) => {
     setIsChecked(event.target.checked);
-    console.log(isChecked); // add this line to log the state to the console
+    controlData(isChecked,"Registration Control","Registration")
+
+    console.log(isChecked);
   };
 
   return (
