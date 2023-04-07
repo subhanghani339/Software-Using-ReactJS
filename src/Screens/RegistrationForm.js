@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextField,
   MenuItem,
@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import "../../src/App.css";
+import { getData } from "../Config/firebasemethod";
 
 const qualifications = ["Matric", "Intermediate", "Graduate"];
 const cities = [
@@ -49,10 +50,26 @@ const RegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission here
+
   };
 
-  return (
+  const [data, setData] = useState();
+
+  const getRegistrationControl = () => {
+    getData("Registration Control")
+      .then((res) => {
+        console.log(res);
+        setData(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
+
+  useEffect(() => {
+    getRegistrationControl();
+  }, []);
+
+  return data ? ( <h1 style={{ textAlign: "center" }}>Registration has been closed</h1>) : (
     <Container maxWidth="lg" disableGutters sx={{marginBottom:"50px"}}>
       <h1 style={{ textAlign: "center" }}>REGISTRATION FORM</h1>
       <form onSubmit={handleSubmit} sx={{ display: "flex" }}>
@@ -262,7 +279,8 @@ const RegistrationForm = () => {
         </Grid>
       </form>
     </Container>
-  );
+     )
 };
+
 
 export default RegistrationForm;
