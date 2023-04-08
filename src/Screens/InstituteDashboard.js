@@ -62,14 +62,6 @@ function InstituteDashboard(props) {
             path: "students-list",
           },
           {
-            name: "Students Detail",
-            path: "students-detail",
-          },
-          {
-            name: "Student Form",
-            path: "student-form",
-          },
-          {
             name: "Quiz",
             path: "quiz",
           },
@@ -156,7 +148,7 @@ function InstituteDashboard(props) {
           <Route path="/registration-control" element={<RegistrationControl />} />
           <Route path="/results" element={<Results />} />
           <Route path="/students-list" element={<StudentsList />} />
-          <Route path="/students-detail" element={<StudentsDetail />} />
+          <Route path="/students-list/student-details/:name" element={<StudentsDetail />} />
           <Route path="/student-form" element={<StudentForm />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/add-quiz" element={<AddQuiz />} />
