@@ -26,6 +26,31 @@ const createUser = (obj, nodename) => {
   });
 };
 
+// const postData = (obj, nodename, id) => {
+//   let postrefList;
+
+//   return new Promise((resolve, reject) => {
+
+//     if(id){
+//       postrefList = ref(database, `${nodename}/${id}`);
+//     }else{
+//       let addRef = ref(database, nodename)
+//       obj.id = push(addRef).key;
+//       postrefList = ref(database, `${nodename}/${obj.id}`)
+//     }
+//     set(postrefList, obj)
+//       .then(() => {
+//         resolve("Institute added successfully and data sent to database");
+//       })
+//       .catch((err) => {
+//         reject("Institute created successfully but data not sent to database");
+//         console.log("database error", err);
+//       });
+//   }).catch((err) => {
+//     console.log(err);
+//   });
+// };
+
 const postData = (obj, nodename) => {
   return new Promise((resolve, reject) => {
     const reference = ref(database, nodename);
@@ -58,7 +83,7 @@ const getData = (nodeName) => {
   });
 };
 
-const controlData = (obj, nodename,subnode) => {
+const controlData = (obj, nodename, subnode) => {
   return new Promise((resolve, reject) => {
     const reference = ref(database, `${nodename}/${subnode}/`);
     set(reference, obj)

@@ -14,7 +14,7 @@
 import React from "react";
 import { Avatar, Box, Container, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import institute from "../../Images/institute.svg";
+import institute from "../../Images/student-logo.png";
 
 const StudentsDetail = () => {
   const location = useLocation();
@@ -39,7 +39,6 @@ const StudentsDetail = () => {
           height: "auto",
           marginBottom: "1rem",
           padding: '2rem',
-          border:'4px solid #000',
         }}
       />
 
