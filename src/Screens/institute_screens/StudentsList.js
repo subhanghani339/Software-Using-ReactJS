@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getData } from "../../Config/firebasemethod";
+import { deleteData, getData } from "../../Config/firebasemethod";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -50,7 +50,7 @@ export default function StudentsList() {
   }, []);
 
   const navigate = useNavigate();
-
+  
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "25px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
@@ -69,17 +69,17 @@ export default function StudentsList() {
             </TableRow>
           </TableHead>
             {data.map((row) => (
-          <TableBody  onClick={() => {
+          <TableBody onClick={() => {
             navigate(`/institute-dashboard/students-list/student-details/${row.name}`,{state: row,});}}>
               <StyledTableRow key={row.name}>
                 <StyledTableCell align="center" key={row.name} >{row.name}</StyledTableCell>
                 <StyledTableCell align="center" key={row.fatherName}>{row.fatherName}</StyledTableCell>
                 <StyledTableCell align="center" key={row.course}>{row.course}</StyledTableCell>
                 <StyledTableCell align="center" key={row.name} onClick={(e) => {e.stopPropagation();}}>
-                  <EditIcon sx={{ cursor: "pointer" }} />
+                  <EditIcon sx={{ cursor: "pointer" }} onClick={ ()=>{ navigate("/institute-dashboard/edit-student", {state: row});}} />
                 </StyledTableCell>
                 <StyledTableCell align="center" key={row.name} onClick={(e) => { e.stopPropagation(); }}>
-                  <DeleteIcon sx={{ cursor: "pointer" }} />
+                  <DeleteIcon sx={{ cursor: "pointer" }} onClick = {(id) => { deleteData("Students", row.id).then((res)=>{alert(res)}).catch((err)=>{console.log(err)})}} />
                 </StyledTableCell>
               </StyledTableRow>
           </TableBody>

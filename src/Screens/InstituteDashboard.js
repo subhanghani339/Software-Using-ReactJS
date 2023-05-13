@@ -26,6 +26,8 @@ import StudentsDetail from './institute_screens/StudentsDetail';
 import StudentForm from './institute_screens/StudentForm';
 import Quiz from './institute_screens/Quiz';
 import AddQuiz from './institute_screens/AddQuiz';
+import EditCourse from './institute_screens/EditCourse';
+import EditStudent from './institute_screens/EditStudent';
 
 
 const drawerWidth = 240;
@@ -145,6 +147,7 @@ function InstituteDashboard(props) {
       <Routes>
           <Route path="/" element={<CourseList />} />
           <Route path="/course-form" element={<CourseForm />} />
+          <Route path="/edit-course" element={<EditCourse />} />
           <Route path="/registration-control" element={<RegistrationControl />} />
           <Route path="/results" element={<Results />} />
           <Route path="/students-list" element={<StudentsList />} />
@@ -152,6 +155,7 @@ function InstituteDashboard(props) {
           <Route path="/student-form" element={<StudentForm />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/add-quiz" element={<AddQuiz />} />
+          <Route path="/edit-student" element={<EditStudent />} />
       </Routes>
     </Box>
   );

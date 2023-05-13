@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDatabase, onValue, set, ref, push } from "@firebase/database";
+import { getDatabase, onValue, set, ref, push, update, remove } from "@firebase/database";
 import app from "./firebaseconfig";
 
 const auth = getAuth(app);
@@ -11,6 +11,7 @@ const createUser = (obj, nodename) => {
       (userCredential) => {
         const user = userCredential.user;
         const reference = ref(database, `${nodename}/${user.uid}`);
+        obj.id = user.uid
         set(reference, obj)
           .then(() => {
             resolve("User created successfully and data send to database");
@@ -26,19 +27,10 @@ const createUser = (obj, nodename) => {
   });
 };
 
-// const postData = (obj, nodename, id) => {
-//   let postrefList;
-
+// const postData = (obj, nodename) => {
 //   return new Promise((resolve, reject) => {
-
-//     if(id){
-//       postrefList = ref(database, `${nodename}/${id}`);
-//     }else{
-//       let addRef = ref(database, nodename)
-//       obj.id = push(addRef).key;
-//       postrefList = ref(database, `${nodename}/${obj.id}`)
-//     }
-//     set(postrefList, obj)
+//     const reference = ref(database, nodename);
+//     push(reference, obj)
 //       .then(() => {
 //         resolve("Institute added successfully and data sent to database");
 //       })
@@ -51,10 +43,31 @@ const createUser = (obj, nodename) => {
 //   });
 // };
 
-const postData = (obj, nodename) => {
+const deleteData = (nodeName, id) => {
   return new Promise((resolve, reject) => {
-    const reference = ref(database, nodename);
-    push(reference, obj)
+    const databaseRef = ref(database, `${nodeName}/${id}`);
+    // const dataRef = child(databaseRef, id);
+    remove(databaseRef)
+      .then(() => {
+        resolve(`Data with ID '${id}' deleted successfully from '${nodeName}'`);
+      })
+      .catch((error) => {
+        reject(`Error deleting data: ${error}`);
+      });
+  });
+};
+
+const postData = (obj, nodename, id) => {
+  let postrefList;
+  return new Promise((resolve, reject) => {
+    if(id){
+      postrefList = ref(database, `${nodename}/${id}`);
+    }else{
+      let addRef = ref(database, nodename)
+      obj.id = push(addRef).key;
+      postrefList = ref(database, `${nodename}/${obj.id}`)
+    }
+    set(postrefList, obj)
       .then(() => {
         resolve("Institute added successfully and data sent to database");
       })
@@ -69,7 +82,6 @@ const postData = (obj, nodename) => {
 
 const getData = (nodeName) => {
   let reference = ref(database, nodeName);
-
   return new Promise((resolve, reject) => {
     onValue(reference, (e) => {
       let status = e.exists();
@@ -99,129 +111,15 @@ const controlData = (obj, nodename, subnode) => {
   });
 };
 
-export { createUser, getData, postData, controlData };
+const editData = (obj, nodeName, id)=>{
+  return new Promise((resolve,reject)=>{
+      let reference = ref(database, `${nodeName}/${id}`);
+      update(reference, obj).then((res)=>{
+          resolve(res);
+      }).catch(()=> {
+          reject("Data not Updated");
+      })
+  });
+};
 
-// import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-// import {
-//   getDatabase,
-//   onValue,
-//   push,
-//   ref,
-//   set,
-//   remove
-// } from "@firebase/database";
-// import app from "./firebaseconfig";
-
-// const auth = getAuth(app);
-// const database = getDatabase(app);
-
-// const postData = (obj, nodename) => {
-//   return new Promise((resolve, reject) => {
-//     const reference = ref(database, nodename);
-//     push(reference, obj)
-//       .then(() => {
-//         resolve("Institute added successfully and data sent to database");
-//       })
-//       .catch((err) => {
-//         reject("Institute created successfully but data not sent to database");
-//         console.log("database error", err);
-//       });
-//   }).catch((err) => {
-//     console.log(err);
-//   });
-// };
-
-// const getData = (nodeName) => {
-//   let reference = ref(database, nodeName);
-//   return new Promise((resolve, reject) => {
-//     onValue(reference, (e) => {
-//       let status = e.exists();
-//       if (status) {
-//         let data = e.val();
-//         resolve(Object.values(data));
-//       } else {
-//         reject("Data Not Found");
-//       }
-//     });
-//   });
-// };
-
-// const loginUser = (obj) =>{
-//     let{email, password} = obj
-//     return new Promise((resolve, reject)=>{
-//         signInWithEmailAndPassword(auth, email, password).then((userCredential)=>{
-//             const user = userCredential.user
-//             const reference = ref(database, `users/${user.uid}`);
-//             onValue(reference, (e)=>{
-//                 let status = e.exists();
-//                 console.log(status);
-//                 if(status){
-//                     resolve(e.val())
-//                 }
-//                 else{
-//                     reject("Data Not Found")
-//                 }
-//             })
-//         }).catch((err) => {
-//             reject(err)
-//         })
-//     })
-// };
-
-// const SignupUser = (obj,nodename)=>{
-//   let {email, password} = obj
-//   return new Promise((resolve, reject)=>{
-//       createUserWithEmailAndPassword(auth, email, password)
-//       .then((userCredential)=>{
-//           const user = userCredential.user
-//           const reference = ref(database, `${nodename}/${user.uid}`)
-//           set(reference, obj).then(()=>{
-//               resolve('user created successfully and data send database')
-//           }).catch((err)=>{
-//               reject('user created successfully but data not send database')
-//               console.log('database error', err)
-//           })
-//       })
-//   }).catch((err)=>{
-//       console.log(err)
-//   })
-
-// }
-
-// const checkUser = () => {
-//   return new Promise((resolve, reject) => {
-//     onAuthStateChanged(auth, (user) => {
-
-//       if (user) {
-//         resolve(user)
-//       } else {
-//         reject("no user found");
-//       }
-//     })
-//   })
-// }
-
-// const signoutUser = ()=>{
-//   return new Promise((resolve, reject)=>{
-//       signOut(auth).then(()=>{
-//           resolve("You are Successfully Logout");
-//       }).catch((err)=>{
-//           reject("Logout Error", err);
-//       })
-//   })
-// }
-
-// const deleteData = (nodeName, id)=>{
-//   return new Promise((resolve, reject) => {
-//       let reference = ref(database, `${nodeName}/${id}`);
-//       remove(reference)
-//         .then(() => {
-//           resolve("successfully deleted");
-//         })
-//         .catch(() => {
-//           reject("something is wrong");
-//         });
-//     });
-// }
-
-// export { postData, getData, loginUser, SignupUser, checkUser, signoutUser, deleteData };
+export { createUser, getData, postData, controlData, editData, deleteData};

@@ -9,8 +9,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getData } from "../../Config/firebasemethod";
+import { deleteData, getData } from "../../Config/firebasemethod";
 import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,6 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CourseList() {
+  
   const [data, setData] = useState([]);
   const getCourseData = () => {
     getData("Courses")
@@ -46,6 +49,15 @@ export default function CourseList() {
   useEffect(() => {
     getCourseData();
   }, []);
+
+  let deleteInstitute = (id) => {
+    console.log(id)
+    deleteData("Courses", id).then((res)=>{
+      alert( res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 
   const navigate = useNavigate();
 
@@ -62,7 +74,8 @@ export default function CourseList() {
               <StyledTableCell align="center">COURSE NAME</StyledTableCell>
               <StyledTableCell align="center">DURATION</StyledTableCell>
               <StyledTableCell align="center">FEES</StyledTableCell>
-              <StyledTableCell align="center">ACTION</StyledTableCell>
+              <StyledTableCell align="center">EDIT</StyledTableCell>
+              <StyledTableCell align="center">DELETE</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,7 +84,13 @@ export default function CourseList() {
                 <StyledTableCell align="center" key={row.courseName} >{row.courseName}</StyledTableCell>
                 <StyledTableCell align="center" key={row.duration}>{row.duration}</StyledTableCell>
                 <StyledTableCell align="center" key={row.fee}>${row.fee}</StyledTableCell>
-                <StyledTableCell align="center" key={row.name}>{row.duration}</StyledTableCell>
+                <StyledTableCell onClick={(e)=> {e.stopPropagation()}} align="center" key={row.name}>
+                  <EditIcon sx={{cursor: "pointer"}} onClick={() => {navigate("/institute-dashboard/edit-course", {state: row});}} />
+                </StyledTableCell>
+                <StyledTableCell onClick={(e)=> {e.stopPropagation()}} align="right">
+                  <DeleteIcon sx={{cursor: "pointer"}} onClick={()=> deleteInstitute(row.id)} />
+                </StyledTableCell>
+
               </StyledTableRow>
             ))}
           </TableBody>

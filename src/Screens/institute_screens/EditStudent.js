@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   TextField,
   MenuItem,
@@ -11,9 +11,8 @@ import {
   Grid,
   Container,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import "../../src/App.css";
-import { getData } from "../Config/firebasemethod";
+import { useLocation, useNavigate } from "react-router-dom";
+import { editData } from "../../Config/firebasemethod";
 
 const qualifications = ["Matric", "Intermediate", "Graduate"];
 const cities = [
@@ -33,46 +32,27 @@ const courses = [
 
 const sections = ["A", "B", "C", "D", "E"];
 
-const RegistrationForm = () => {
-  const [name, setName] = useState("");
-  const [fatherName, setFatherName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [CNIC, setCNIC] = useState("");
-  const [password, setPassword] = useState("");
-  const [qualification, setQualification] = useState("");
-  const [course, setCourse] = useState("");
-  const [gender, setGender] = useState("");
-  const [section, setSection] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [address, setAddress] = useState("");
+const EditStudent = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location.state);
+  const [Student, setStudent] = useState(location.state);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const handleUpdate = (id) => {
+    editData(Student, "Students", id)
+      .then(() => {
+        alert("Student Update Successfully");
+        navigate("/institute-dashboard/students-list");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const [data, setData] = useState([]);
-
-  const getRegistrationControl = () => {
-    getData("Registration Control")
-      .then((res) => {
-        console.log(res);
-        setData(res);
-      })
-      .catch((err) => console.log(err));
-  }
-
-
-  useEffect(() => {
-    getRegistrationControl();
-  }, []);
-
-  return !data[0] ? ( <h1 style={{ textAlign: "center" }}>Registration has been closed</h1>) : (
-    <Container maxWidth="lg" disableGutters sx={{marginBottom:"50px"}}>
-      <h1 style={{ textAlign: "center" }}>REGISTRATION FORM</h1>
-      <form onSubmit={handleSubmit} sx={{ display: "flex" }}>
+  return (
+    <Container maxWidth="md" disableGutters sx={{ marginTop: "50px" }}>
+      <h1 style={{ textAlign: "center" }}>EDIT STUDENT</h1>
+      <form onSubmit={(e)=> {e.preventDefault()}} sx={{ display: "flex" }}>
         <Grid
           container
           spacing={2}
@@ -84,8 +64,8 @@ const RegistrationForm = () => {
               label="Student Name"
               variant="outlined"
               fullWidth
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              value={Student?.name}
+              onChange={(e) => setStudent({ ...Student, name: e.target.value })}
               margin="normal"
             />
           </Grid>
@@ -95,8 +75,10 @@ const RegistrationForm = () => {
               label="Father Name"
               variant="outlined"
               fullWidth
-              value={fatherName}
-              onChange={(event) => setFatherName(event.target.value)}
+              value={Student?.fatherName}
+              onChange={(e) =>
+                setStudent({ ...Student, fatherName: e.target.value })
+              }
               margin="normal"
             />
           </Grid>
@@ -107,8 +89,10 @@ const RegistrationForm = () => {
               variant="outlined"
               fullWidth
               type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={Student?.email}
+              onChange={(e) =>
+                setStudent({ ...Student, email: e.target.value })
+              }
               margin="normal"
             />
           </Grid>
@@ -119,8 +103,10 @@ const RegistrationForm = () => {
               variant="outlined"
               fullWidth
               type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              value={Student?.password}
+              onChange={(e) =>
+                setStudent({ ...Student, password: e.target.value })
+              }
               margin="normal"
             />
           </Grid>
@@ -130,8 +116,10 @@ const RegistrationForm = () => {
               label="Contact Number"
               variant="outlined"
               fullWidth
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
+              value={Student?.contact}
+              onChange={(e) =>
+                setStudent({ ...Student, contact: e.target.value })
+              }
               margin="normal"
             />
           </Grid>
@@ -141,8 +129,8 @@ const RegistrationForm = () => {
               label="CNIC"
               variant="outlined"
               fullWidth
-              value={CNIC}
-              onChange={(e) => setCNIC(e.target.value)}
+              value={Student?.CNIC}
+              onChange={(e) => setStudent({ ...Student, CNIC: e.target.value })}
               margin="normal"
             />
           </Grid>
@@ -153,8 +141,10 @@ const RegistrationForm = () => {
                 label="City"
                 select
                 variant="outlined"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                value={Student?.city}
+                onChange={(e) =>
+                  setStudent({ ...Student, city: e.target.value })
+                }
               >
                 {cities.map((city, index) => (
                   <MenuItem key={index} value={city}>
@@ -171,8 +161,10 @@ const RegistrationForm = () => {
                 label="Country"
                 select
                 variant="outlined"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
+                value={Student?.country}
+                onChange={(e) =>
+                  setStudent({ ...Student, country: e.target.value })
+                }
               >
                 {countries.map((country, index) => (
                   <MenuItem key={index} value={country}>
@@ -188,8 +180,10 @@ const RegistrationForm = () => {
               <FormLabel component="legend">Gender</FormLabel>
               <RadioGroup
                 aria-label="gender"
-                value={gender}
-                onChange={(event) => setGender(event.target.value)}
+                value={Student?.gender}
+                onChange={(e) =>
+                  setStudent({ ...Student, gender: e.target.value })
+                }
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <FormControlLabel
@@ -212,11 +206,16 @@ const RegistrationForm = () => {
                 label="Last Qualification"
                 select
                 variant="outlined"
-                value={qualification}
-                onChange={(event) => setQualification(event.target.value)}
+                value={Student?.qualification}
+                onChange={(e) =>
+                  setStudent({ ...Student, qualification: e.target.value })
+                }
               >
                 {qualifications.map((qualification) => (
-                  <MenuItem key={qualification} value={qualification}>
+                  <MenuItem
+                    key={qualification}
+                    value={qualification}
+                  >
                     {qualification}
                   </MenuItem>
                 ))}
@@ -230,8 +229,10 @@ const RegistrationForm = () => {
                 label="Course"
                 select
                 variant="outlined"
-                value={course}
-                onChange={(event) => setCourse(event.target.value)}
+                value={Student?.course}
+                onChange={(e) =>
+                  setStudent({ ...Student, course: e.target.value })
+                }
               >
                 {courses.map((course, index) => (
                   <MenuItem key={index} value={course}>
@@ -248,8 +249,10 @@ const RegistrationForm = () => {
                 label="Section"
                 select
                 variant="outlined"
-                value={section}
-                onChange={(e) => setSection(e.target.value)}
+                value={Student?.section}
+                onChange={(e) =>
+                  setStudent({ ...Student, section: e.target.value })
+                }
               >
                 {sections.map((section, index) => (
                   <MenuItem key={index} value={section}>
@@ -265,22 +268,23 @@ const RegistrationForm = () => {
               label="Address"
               variant="outlined"
               fullWidth
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={Student?.address}
+              onChange={(e) =>
+                setStudent({ ...Student, address: e.target.value })
+              }
               margin="normal"
             />
           </Grid>
 
           <Grid item lg={12} md={12} sm={12}>
-            <Button variant="contained" color="primary" type="submit">
-              Register
+            <Button onClick={() => handleUpdate(Student.id)} variant="contained" color="primary" type="submit">
+              Update Student
             </Button>
           </Grid>
         </Grid>
       </form>
     </Container>
-     )
+  );
 };
 
-
-export default RegistrationForm;
+export default EditStudent;
